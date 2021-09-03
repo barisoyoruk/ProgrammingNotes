@@ -1,0 +1,114 @@
+@@@ Internal Usage. Overrides external CSS codes
+<style> 
+	p { // Apllies whole p tags
+		color: blue !important; // Cannot be overriden
+	}
+
+	.red { // For class-based usage. One-to-many
+		color: red;
+	} 
+
+	#paragraph { // For id-based usage. One-to-one
+		color: green;
+	}
+</style> 
+
+@@@ External Usage
+<link rel="stylesheet" type="text/css" href="style.css"> 
+
+@@@ Inline Usage. Overrides other usages
+<p style=""></p> // Inline Style Usage. Not Preffered
+<p class="red"></p> //  Inline Class-Based Usage. Takes Properties of the class in style part
+<p id="paragraph"></p> // Inline Id-Based Usage. Takes Properties of the id in style part
+---------------------------------------------------------------------------------------------
+@@@ Positioning
+!!! display: inline => Only allocates place for its content and items after it goes by its right side. Adjusting width is not possible
+!!! display: inline-block => Allocates place in row by adjusted width. Items after it goes by its right side. Adjusting width is possible.
+!!! display: block => Allocates whole row for itself. Adjusting width is possible
+
+!!! float: left | right => ...
+
+!!! position: static => default
+!!! position: relative => 4 yönden normalde olması gereken yere göre hizalama
+!!! position: absolute => Kapsandığı en yakın ve position'u relative olan yere göre sol üst köşesine göre hizalama
+!!! position: fixed => 4 yönden sayfada konumlandırılır ve her zaman (scroll olsa bile) o noktada kalır
+!!! position: sticky => Googlela
+---------------------------------------------------------------------------------------------
+@@@ Important Notes
+Id > Class > Internal > External (Override Sırası)
+Transform(-50%,-%50) => İçindeki elemanlaranın width ve heightlarına göre öteleme
+height: 90vh => O andaki yüksekliğin 90%'ı kadar alanı kaplama
+z-index => öncelikle görülme ayarlama
+---------------------------------------------------------------------------------------------
+@@@ Group Selectors
+* => tüm etiketler
+p => tüm p etiketleri
+div p => divlerin altındaki tüm p etiketleri 
+.container div => container classın içindeki tüm div etiketleri
+.container div.box = > container classının içindeki classı box olan tüm div etiketleri
+.container div .box => container classının içindeki divlerin içindeki box classı olan tüm etiketler
+div, p => tüm p ve div etiketleri
+div > p => bir üst etiketi div olan tüm p etiketleri 
+p ~ div => p ile aynı seviyede olan ve sonra gelen tüm div etiketleri 
+p + div => p ile aynı seviyede olan ve p'den sonra gelen ilk div etiketi
+
+@@@ Attribute Selectors
+p[title] => title attribute olan tüm etiketler için
+p[title="third paragraph"] => title attribute "third paragraph" olan tüm etiketler için
+p[title~="forth"] => title attributenın içinde "forth" geçen tüm etiketler için
+a[href^="http"] => href attributenın başlangıcında http olan tüm etiketler için
+a[href$="com"] => href attributenın sonunda com olan tüm etiketler için
+a[...][...] => iki özelliğide olan tüm etiketler için
+
+@@@ Pseudo Element
+p::first-line => tüm p etiketilerinin ilk satırı 
+p::first-letter
+p::after
+p::before
+   
+@@@ Pseudo Class
+ul li:first-child => listin ilk elamanı
+ul li:last-child
+ul li:nth-of-type(even)
+a:link => daha önce basılmamış link
+a:visited
+a:hover => linkin üzerine gelindiğinde
+a:active 
+div:hover span => div kısmının üstüne gelindiğinde içindeki span etiketi için 
+--------------------------------------------------------------------------------
+box-sizing: content-box => content + padding + border + margin
+box-sizing: border-box => box + margin
+--------------------------------------------------------------------------------
+@media screen and (max-width: 700px) => Farklı Pixeller için farklı CSSler yazmak için
+<meta name="viewport" content="width=device-width"> => Zoom ile görüntünün otomatik ayarlanmasını kapatmak için
+--------------------------------------------------------------------------------
+@@@ Flex Container
+display: flex => Containara eklenir ve elemanlarına etki eder
+flex-direction: column/row/row-reverse => Elemanları sıralama yönü
+flex-wrap: wrap/nowrap/wrap-reverse => Sığmayan elemanlar aşağıya veya yana kaydırılarak containerdan çıkması önlenir
+SOLDAN SAĞA HIZALAM (COLUMN İÇİN TAM TERSİ)
+justify-content: center/flex-start/flex-end => Elemanlar ortada/solda/sağda sıralanır her zaman.
+justify-content: space-between => Elemanlar arasına eşit boşluklar bırakılarak sola ve sağa dayanı
+justify-content: space-around/space-evenly => Elemanlar arasına eşit boşluklar bırakılır ve en sağ ve soldan da boşluk bırakılır
+YUKARDAN AŞAĞIYA HİZLAMA (COLUMN İÇİN TAM TERSİ)
+align-items: strecth => Bütün elemanların büyüklükleri eşitlenir (1 elemana özellik verilirse ona göre)
+align-items: center => Diğer elemanlar, büyük elemana göre ortalanır
+align-items: flex-start/end => Elemanlar üstte kalır, büyük elemana göre değişmez
+alignment-baseline: yazıların altsınırından hizalama
+
+@@@ Flex Items 
+aling-self: flex-end/flex-start/stertch => eleman kendini hizalar
+order: -1 => Eleman sırasını belirleme
+flex-grow: 1 => sayfa büyüdükçe eleman kendini büyütür. Diğer elemenlara verilen oranla
+flex-basis: 15% => İçinde bulunduğu containerın %15 ini kaplar
+flex-basis: 200px => Her zaman bu kadar piksel kaplar. (Çok küçüklemedikçe tarayıcı) 
+flex-shrink: 0 => Her zaman 200px kalır. Çok küçülürse tarayıcı scroll-bar çıkar
+
+@@@ Row Alignment 
+align-content: flex-start/flex-end/scretch/space-between/center/space-around/space-evenly
+
+@@@ overflow => What to do when content overflows its box
+overflow: scroll
+overflow: auto
+overflow: hidden
+overflow: visible

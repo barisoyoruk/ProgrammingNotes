@@ -1,0 +1,87 @@
+@@@ Color
+---text---
+text-primary => Default Blue
+text-seconday => Light Purple
+text-success
+text-warning
+text-danger
+text-info
+text-light
+text-dark
+text-muted
+text-white
+---bg---
+bg-dark
+---badge--- (tr: işaret/rozet)
+badge badge-primary
+badge badge-pill badge-primary => For whole rounding
+
+@@@ Heading & Text
+h1
+...
+h6
+display-1 => For Headings
+...
+display-4
+font-weight-bold
+font-weight-normal
+font-weight-light
+font-italic
+lead => Make a paragraph stand out
+text-lowercase
+text-uppercase
+text-capitalize
+
+@@@ Button
+btn btn-primary
+btn btn-outline-primary
+btn btn-success btn-lg => Large Buton
+btn btn-success btn-block => Display: block;
+<div class="btn-group"></div> => Buttons in div are  displayed as a group.
+<div class="btn-group-vertical"></div>
+<div class="btn-toolbar"></div> => Button groups in div are displayed as a group.
+
+@@@ Margin & Padding => m yerin p
+m-2 (0,1,2,3,4,5) 
+mr/ml/mt/mb
+my => t + b
+mx => r + l
+
+@@@ Border & Sizing
+border
+border-top
+border-top-0 => üstte border olmasın
+border border-primary
+border rounded
+border rounded-top => üstte yuvarlama
+
+w-25 => Sayfanın %25ni kaplatma
+h-25 => Yüksekliğin %25 ni kaplatma;
+
+shadow
+shadow-sm => Az 
+shadow-lg => Fazla
+
+@@@ Text Hizamala
+text-justify
+text-left
+text-center
+
+@@@ Display
+d-block 
+d-inline-block
+d-inline
+d-none => Akış İçerisinde Değil
+invisible => Akış İçinde
+
+@@@ Table
+table
+table-dark
+table-striped => Tek/Çift Satır farkı 
+table-border
+table-hover
+table-sm => Küçük tablo
+table-primary
+table-bordered
+table-responsive => İtemler Sığmazsa Scrollbar çıkması
+

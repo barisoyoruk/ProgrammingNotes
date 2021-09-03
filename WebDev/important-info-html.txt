@@ -1,0 +1,82 @@
+@@@ For Sentences
+<h1>lorem</h1> // Most Important Sentences on Site. SEMANTIC
+<h6>lorem</h6> // Least Important Sentences on Site. SEMANTIC
+<p>lorem</p> // Paragraph
+
+@@@ Head 
+<title> // Tab Title
+<meta> // Settings of Site
+
+
+@@@ Random
+<img> // Picture
+<i></i> // Icons
+<hr> // Horizontal Line. SEMANTIC
+<br> // New Paragraph
+<div></div> // For grouping elements (Block Element). SEMANTIC
+<span></span> // For grouping elements (Not Block Element). SEMANTIC
+<time></time> // Showing Time. SEMANTIC
+<iframe src=""></iframe> // Adding another html, site, youtube videos to main html
+
+@@@ Lists
+<ul> // Unordered List
+	<li>lorem</li> // List Element
+	<li>lorem</li>
+</ul>
+<ol> // Ordered List
+	<li>lorem</li> // List Element
+	<li>lorem</li>
+</ol>
+
+@@@ Forms
+<form>
+	<input> // For inputs. Names, radibuttons, submission etc.
+	<label></label>
+	<textarea></textarea>
+	<select> // For selections
+		<option>lorem1</option> // Selection items
+		<option>lorem2</option>
+	</select>
+</form> // For form elements
+
+
+@@@ Tables
+<table> // Table
+	<thead> // Table Header
+		<th>lorem</th> // Table Header
+	</thead>
+	<tbody> // Table Body
+		<tr> // First Row
+			<td>lorem</td> // First Row, First Element
+			<td>lorem</td> // First Row, Second Element
+		</tr>
+		<tr> // Second Row
+			<td>lorem</td> // Second Row, First Element
+			<td>lorem</td> // Second Row, Second Element
+		</tr>
+	</tbody>
+</table>
+
+@@@ Text Formatting
+<b>lorem</b> // Bold
+<strong>lorem</strong> // Bold. SEMANTIC
+<i>lorem</i> // Italic
+<em>lorem</em> // Italic. SEMANTIC
+<u>lorem</u> // Underline
+<ins>lorem</ins> // Underline SEMANTIC
+<sup>lorem</sup> // Upper writing. SEMANTIC
+<sub>lorem</sub> // Lower writing. SEMANTIC
+<small>lorem</small> // Small Letters
+<del>lorem</del> // Strike-through. SEMANTIC
+<mark>lorem</mark> // Marked
+
+@@@ Semantic Elements // Dividing Logical Parts.
+$$$ They are equal to <div id="header"></div>
+$$$ ALL SEMANTIC
+<header></header> // Header
+<nav></nav> // Navigation
+<aside></aside> // Sidebar
+<main></main> // Content Part
+<article></article> // Article
+<section></section> // Section
+<footer></footer> // Footer

@@ -1,0 +1,674 @@
+@@@ Variables - Variable Types @@@
+/* Scope */
+var		// Global scope. Block scope oluşturmaz. Blockun içinde tanımlarsan bile dışardan ulaşılır. 
+let 	// Local scope. Block scope oluşturur. Blockun içinde tanımlarsan dışarda ulaşamazsın. 
+const   // Local scope.														(Diğer diller gibi)
+
+
+/* Primitive Types */
+string
+number 		//int-double
+boolean
+undefined	// Never assigned. typeof undefined is undefined	
+null		// Assigned to null. typeof null is object
+
+
+/* Reference Types - Objects */
+object (array/list/classic objects/all others) 
+function
+
+-Types can be learned with 'typeof <var_name>' i.e. returns string 
+-number("not a number") returns NaN whose type is number 	// Can be checked with isNaN(<number>). Not a Number
+-`My age is ${2018-yearOfBirth}` => Template Literals		// Instead of string concentination
+
+
+
+
+@@@ Operators @@@
+==		// Value control 		i.e. '5' == 5 return true
+===		// Value & Type control	i.e. '5' === 5 return false
+
+
+
+
+@@@ Arrays @@@
+(var arr = [element1, ...]) | (var = new Array(element1, ...)		// Should be defined like this
+arr.find(over18)		// Return the first variable whose return value is true from the function 'over18'
+arr.filter(over18)		// Return an array of variables whose return value is true from the function 'over18'
+arr.sort(compare)		// Sorts the array with regard to 'compare' function
+
+/* Converting to Array */
+Array.from(elements)							// elements may be NodeList, HTML Collection, ArgumentList, string
+Array.from(elements, element => element.name)	// Element isimlerinden oluşan array oluşturulur ve döndürülür
+product.findIndex(prd => prd.pric == 5000)		// Doğru olan elemanın indexine döner
+
+
+
+
+@@@ Loops @@@
+for (let i in cars)	{}			// i = 0, 1, ..., cars.length - 1
+for (let car of cars) {}		// car = cars[0], cars[1], ..., cars[cars.length - 1]
+cars.forEach(function(car) {})	// car = cars[0], cars[1], ..., cars[cars.length - 1]
+let cars_names = cars.map(function(car) {return car.name})	// Returns new array that contains elements that returned by the function for each element
+															
+
+
+
+@@@ Functions @@@
+function sum(a=0, b=0) {return a + b}			// Classic declaration
+const sum = function(a=0, b=0) {return a + b}	// Another declaration (const may change). a and b has default value
+
+function sumAll() {								
+	var total = 0; 
+	for(let i = 0; i < arguments.length; i++) {	
+		total += arguments[i]					// All parameters that are extra put can be accessed with arguments array 
+	}
+}	
+sumAll(1,5,12,...)
+
+-Fonksiyonların parametresine başka fonksiyon referansaları koyup, parametreden o fonksiyonu kullanabilirsin. Tıpkı any object veya primitive type gibi. Ayrıca anonymous functionda 
+yazabilirsin parametreye. 
+-Bu tip parametre ile aktarılan fonksiyonalara 'callback function' denilir.
+- Fonksiyonlar fonksiyon dönebilir
+
+
+/* Immediate Functions */
+(function() {			// Sadece bir kere çalışırlar 
+	// Statements
+}
+})();
+
+
+/* Arrow Functions */
+-Arrow functionlar yeni scope oluşturmazlar. Yani dışardaki this'i içerde de kullanabiliriz
+
+let welcomeES6 = (a, b) => {	
+	// Statements
+}
+
+let welcomeES6 = (a, b) => a * b	// Eğere tek satırsa süslü paranteze ve return statementa ihtiyaç yok
+
+let welocmeES6 = a => a * a;			// Eğer tek parametre varsa paranteze gerek yok
+
+
+/* Array Spread */
+let geTotal = (a, b, c) => a + b + c;
+numbers = [10, 20, 30]
+getTotal(...numbers)		// Numbers arrayinin elemanlarını açarak gönderiyoruz
+
+const newArray = [...oldArray, 1, 2]
+const newObject = {...oldObject, newProp: 5}
+
+
+/* Rest Parameters */
+function sumES6(a, ...arr) {		// Parametreleri arraye çeviriyoruz. Rest Parametresi argümanların en sonunda olmalı
+	let result = a;
+	arr.forEach(item => result += item);
+	return result;
+}
+sumES6(5, 10, 20, 30)
+
+
+/* Destructing */
+let a, b, rest;
+
+[a, b, ...rest] = [10, 20, 30, 40];					// Rest will be Array
+or
+({a, b, ...rest} = {a: 10, b: 20, c: 30, d: 40});	// Rest will be Object Literal
+
+console.log(rest)				// [30, 40] or {c: 30, d: 40}
+
+
+/* Array Desctructing */
+const arr = [1, 5, 9, 12]
+const [a, b, c, d] = arr		// a, b, c, d sırayla değerleri alır
+
+
+/* Object  Destructing */
+const obj = {a: 1, b: 2, c: 7}
+const {a, b, c = 5, d = 10} = obj			// a, b, c (7) sırayla değerleri alır. d obj'de olmadığı için undefined olur ama default value verilirse onun değerini alır
+const {c: v} = obj							// c değerini objeden alıp v'ye koyar. Sıra olmasına gerek yok
+
+const person = {name: "Mat", age: 18}
+const personCopy = {...person}				// This is not a pointer copy, this is hard copy
+
+
+@@@ Maps & Sets @@@
+/* Maps */
+let map = new Map([[1, 'one'], [2, 'two']]);
+map.set('key', 'value');
+map.get('key')
+map.has('key')
+map.delete('key')
+map.clear()
+
+for (var [key, value] of numbers) {}
+number.forEach(function(key, value) {})
+
+
+/* Sets */
+=> Only Unique Element
+let set =  new Set([2, 3])
+set.add(1)
+set.has(1)
+set.delete(1)
+set.clear()
+
+
+
+
+@@@ Objects @@@
+/* Object Literals */
+let person = {
+	firstName: 'ChadOzgür',
+	hobbies: ['music', 'game'],
+	getFirstName: function() {
+		return this.firstName;
+	}
+}
+person.getFirstName()		// 'ChadOzgür'
+person.name = 'Özço'	// Changes to 'Özço'
+
+
+/* Object  Constructor */
+function Person(name, yearOfBirth) {
+	name = name;												// Name is private field now and not key of the object
+	this.yearOfBirth = yearOfBirth;
+	this.getName = function () {
+		return name;
+	}
+}
+let person = new Person('baris', 2000);
+
+
+/* Classes */
+class Person{
+	constructor(name, yearOfBirth) {
+		this.name = name;
+		this.yearOfBirth = yearOfBirth;
+	}
+
+	surname;
+
+	calculateAge() {						// Otamatik olarak prototype kısmına ait olur
+		return 2018 - this.yearOfBirth
+	}
+
+
+	static sayHi() {						// Instancelar olmadan method çalıştırabilmek için. Instance ile çalıştırılamaz.
+		console.log('Hello there')
+	}
+}
+let abala = new Person('abala', 1980);
+
+
+/* Features of Objects */
+person.defineProperty(Person, 'age', {		// Defining a new property to object
+	value: 50,
+	writable = true		// If false, than property will be constant
+})
+
+person instanceof Person	// Returns true
+
+
+/* Inheritance */
+function Teacher(name, yearOfBirth, subject) {
+	Person.call(this, name, yearOfBirth)				// We inherit properties and functions from the Person Object
+	this.subject = subject					
+	this.getSubject = function () {return this.subject}
+}
+
+class Teacher extends Person {
+	constructor(name,yearOfBirth,subject) {
+		super(name, yearOfBirth);						// We inherit properties and functions from the Person Object
+		this.subject = subject
+	}
+
+	function getSubject() {return this.subject}
+}
+
+
+/* Prototype */	
+Person.prototype.lastName = 'yörük'				// Objelerin iki partı vardır. Biri normal consturctor fonksiyonunda tanımladığımız alanlar.
+Person.prototype.calculateAge = function() {	// Diğeri ise prototype kısmıdır. Normal kısım call ile inherit edilirken prototype farklı edilir.
+	return 2021 - this.yearOfBirth				// Class ile extend edersek hem normal kısım hem de prototype kısmı otamatik olarak inherit edilir ve 
+}												// Prototypal Inheritance'a gerek kalmaz
+
+												// Her obje, 'Object' genel nesnesinin prototype kısmını default olarak inherit eder
+												// e.g hasOwnProperty(), toString(), valueOf()
+
+												// Persondan türettiğimiz instancelar, prototype'taki valueleri direkt olarak alır. Yani bunlar
+												// bütün instancelar arasında paylaşılır. Her insanın soyadı 'yörük' olacak. Ama daha sonra 
+												// instance için bu değer değişitirlirse, bu property prototypetan çıkıp instance'ın propertyisi olur
+
+
+/* Prototypal Inheritance */
+Teacher.prototype = Object.create(Person.prototype)	// Prototype inherit etme
+Teacher.prototype.constructor = Teacher				// Eğer bunu yapmazsak teacherın prototype'ında Person constructor'ı kalır ki bunu istemeyiz
+
+-Prototypelardaki functionlar ve propertyler her instance ve inherit eden nesnelerin instanceları için kopya oluşturmaz. Memory'de sadece bir 
+-yerde fonksiyon tanımlanır, bu da efficeny ve hız sağlar
+
+
+/* Built-in Constructors */
+new String("string")		// value of these are 'object', not 'string'
+new Number(10)				 
+new Boolean(true)
+new Object({name: 'sadık'})
+new Array(1,5,9)
+
+String.prototype.repeat = function(n) {		// Bütün string objelerine yeni method tanımlayabiliriz
+	for (let i = 0; i < n; i++) {
+		console.log(this)
+	}
+}
+
+
+/* Setters and Getters */
+const person = {
+	firstName: 'Yusuf',
+	lastName: 'Karakaya',
+	get fullName() {											// get ve set keywords ile function olduğu ve getter, setter function olduğu belirtilir
+		return this.firstName + ' ' + this.lastName
+	},
+	set fullName(value) {
+		this.firstName = value[0]; this.lastName = value[1];
+	}
+}
+person.fullName						// Yusuf Karakaya
+person.fullName = 'Özço Özço'
+
+or
+
+Object.defineProperty(person, 'fullName', {						// fullName adında getter ve setter functionları oluşturulur
+	get function() {
+		return this.firstName + ' ' + this.lastName
+	}
+	set function(value) {
+		this.firstName = value[0]; this.lastName = value[1];
+	}
+})
+
+
+/* Call, Apply & Bind */
+var welcome = function(a, b) {
+	console.log('Welcome ' + this.name)		// this parametresi fonksiyonun ilk parametresi ile alınır. Bu definitionda belirtilmez.
+}
+var yigit = {name: 'Yigit'}
+
+welcome.call(yigit, a, b)					// Fonksiyonun thisine 'Yiğit'i gönderir ve çağırır.
+welcome.apply(yigit, [a, b])				// Fonksiyonun thisine 'Yiğit'i gönderir ve çağırır. Diğer parametreler array olarak tek parametre halinde gönderilir.
+welcomeYigit = welcome.bind(yigit) 			// Fonksiyonun thisine 'Yiğit'i setler ve geriye yiğite setlenmiş fonksiyonu döndürür
+welcomeYigit(a, b)
+
+
+
+
+@@@ Error Handling @@@
+try {
+	// Hata olabilecek kısım
+	if (!user.email) {
+		throw new Error('User has no email')	// Kendi exceptionımız yazdık. Bu kısım executelanırsa catch çalışacak.
+	}
+}
+catch (e) {
+	// Hata olduğunda yapılacaklar
+	e.message		// Hata mesajo
+	e.name			// Hata adı
+}
+finally {
+	// Her türlü çalışır
+}
+
+
+
+
+@@@ Modules @@@
+- Javascriptte encapsulation ve moduller, immediate functionslar sayesinde sağlanır
+var module = (function() {							// Immediate function.
+				var member1							// private member. Bunlar sadece fonksiyon içinde yaşarlar ve dışardan ulaşılamazlar
+				var member2
+				const func1 = function(param) {}
+				const func2 = function(param) {}
+
+				return {							// Return içine yazılan memberlar ve funclar, modüle dışından da ulaşılabilirler
+					member1,	
+					func1
+				}
+				})();
+module.func1()
+module.member1	
+
+
+
+
+@@@ Modules in New Generation JS @@@
+/* logger.js */ 	// Burdaki logger.js dosyası otomatik olarak Immediate functiona yani modüle dönüştürülür
+let var1 = 5		
+let var2 = 10
+let func1 = () => {};
+
+export const baseData = 10;			// Logger.js file bu function ve variable'ı export ediyor
+export const clean = () => {...}
+
+export func1, var2				// Dosyanın sonunda da logger.js file'ında hangi function ve variableları exportlıcağımızı böyle de söyleyebilirz.
+export default var1					// Default keyword bu script dosyasını isim belirtmeden import edersek bu exportun döneceğini belirtiyor
+
+/* app.js */
+import  v1 from './person.js'		// By default, it imports var1. We can rename it
+
+import {var2 as v1, func1, baseData, clean} from './person.js'	// If it is not default export, than ve use curly braces to specify which elements we want
+import * as bundled from './utily.js'		// We can access all exports from 'bunled' variable
+
+ 
+
+
+@@ Asynchronous JavaScript @@@
+1- Callback
+
+2- Promise
+const array = [{ id: 'asdf'}, { id: 'foo' }, { id: 'bar' }]; 
+let users = [];
+let promises = [];
+for (i = 0; i < array.length; i++) {
+  promises.push(
+    axios.get('/user/' + array[i].id).then(response => {
+      users.push(response);
+    })
+  )
+}
+
+Promise.all(promises).then(() => console.log(users));
+
+3- Async/Await
+async function getMultiple(...objectsToGet) {
+  let users = [];
+  await Promise.all(objectsToGet.map(obj =>
+    axios.get('/user/' + obj.id).then(response => {
+      users.push(response);
+    })
+  ));
+  return users;
+}
+
+console.log(await getMultiple({ id: 'asdf'}, { id: 'foo' }, { id: 'bar' }));
+
+
+
+
+@@@ NodeJS @@@
+-Artık JS kodunu server-sideda çalıştırabiliyoruz. Tarayıcaya bağlı değiliz.
+-Sunucu yapılandırması sayesinde, server'ımız varmış gibi kodumuzu çalıştırabiliyoruz.
+
+node app.js			// js dosyasını bilgisayarda runlamak için
+	
+-node'da window yerine global objesi vardır. Tarayıcadaki global modül windowken node'da global modül global'dır. (Console.log, setInterval vb. functionlar ve global scopeda tanımladığımız nesneler)
+
+-global.module		// Bütün kullanılan modüller burda tutulur
+
+
+
+@@@ NPM @@@
+-npm = package distribution system. Başka modüller kullanıp, kendi projenizi de bir package haline getirmenizi sağlıyor. npm init ile kurulum yapılır. 
+-package.json dosyasında packegı'nızın özellikleri yer alır. node klasöründe yüklenen packagelar yer alır.
+
+npm i webpack				// uygulamanın dependency'sine ekleneir. 
+
+npm i webpack --save-dev	// dependency'e eklenmez. Sadece uygulama geliştirirken kullanılıcaksa böyle yüklenebilir.
+
+npm i webpack --global		// bilgisayarınızda kullanacağınız bütün node projeleri için package indirmek için böyle kurulur.
+
+
+
+
+@@@ Window @@@
+-Javascriptin kaynak kodu tarayıcıdaki yazılım tarafından interpret edilerek makine koduna dönüştürülür. 
+-Tarayıcı bu dönüşüm sonucunda 'window' objesini oluşturur. Bu objede sayfaya dair bilgiler 
+(alert, prompt, scrollPosition, location [url bilgisi, http bilgisi], reload() fonksiyonu, 
+navigator [tarayıcı bilgisi], document [sayfanın html bilgisi], sessionStorage, localStorage vb.) ve kaynak kodundaki variabler, 
+-objeler ve fonksiyonlar tutulur.
+
+
+
+
+@@@ DOM (document object model) & Events @@@
+document 		=> root element (html), propertyler ve fonksiyonlar. windows objesinin içindedir
+root element 	=> html tagı (<html>)
+element 		=> her bir tag (<head>, <body>, <h1>, <a>, <li>, ...)
+text 			=> elementlerin içinde yazan yazı (<h>Bu Yazı</h>)
+attribute 		=> elementlerin özellikleri (<a href=""></a>)
+node 			=> Element + Attribute + Text
+
+
+/* Document properties and functions */
+document.all 		=> Tüm elementler
+document.body		=> Body elementi,
+document.anchors	=> Tüm anchor elementleri		// HTMLCollection'a döner (Array gibi davranış gösterir) 
+document.image		=> Tüm resim elementleri
+document.scripts	=> Tüm script elementleri
+
+
+/* Bir tane element id'si ile bulunur */
+let element = document.getElementById('<id_of_some_tag>')		
+
+	
+// Sadece ilk elemanı seçer	*/
+let node = document.querySelector('#header')			// Id'ye göre seçim
+let node = document.querySelector('.card')				// Class'a göre seçim 
+let node = document.querySelector('div')				// Tag'a göre seçim
+let node = document.querySelector('li:nth-child(3)')	// Li elemanlarındaki 3. elemana döner
+
+
+/* Selecting Multiple Elements */
+let elements = document.getElementsByClassName('className')		// HTMLCollection'a döner 
+let elements = document.getElementsByTagName('li')	
+let nodes = document.querySelectorAll('li')						// NodeList'e döner
+
+
+/* Element properties and functions */
+element.className 							// element'in className'ine ulaşıldı
+element.style.fontSize = 45					// element'in font size'ı 45 yapıldı
+element.innerText = 'asd'					// element'in içindeki yazı 'asd' oldu
+element.innerHTML = '<b>asd</b>'			// element'in içindeki tag'i bu tag ile değiştirir. Yoksa ekler.
+
+let parent_element = document.getElementById('task-list')
+let child_element = parent_tag.getElementByTagName('a')		// Parent_elementinin altındaki bütün child element'ler döner 
+
+
+/* Node properties and function */
+-Çoğu element fonksiyonu ve propertysi node için de geçerli. NodeList elementler haricinde attribute, text ve commentleride tutar
+node.nodeType								// 1 if element, 2 if attribute, 3 if text, 8 if comment
+
+
+/* Class functions and properties */
+element.className 	
+element.classList
+element.classList.add('active')				// element'e 'active' classı eklendi
+element.classList.remove('active')			// element'e 'active' classı silindi
+
+
+/* Attribute function and properties */
+element.getAttribute('href')
+element.setAttribute('href','google.com')
+element.hasAttriibute('href')
+element.removeAttribute('class')
+
+
+/* Traversing Dom */
+let parentNode = document.querySelector('.list-group')
+
+/* NodeList */
+childNodes = parentNode.childNodes		// All elements, texts and attributes thats are direct child of the parent [not all descandents] (NodeList)
+childNode = childNodes[0]
+
+/* HTMLCollection */
+childElements = list.childeren			// All elements thats are direct child of the parent [not all descandents] (HTMLCollection)
+childElement = childElements[0]
+childElement.childeren					// Grandelements of the parent
+childElement.parentNode					// Node
+childElement.parentElement 				// Element
+childElement.nextSibling 				// Node
+childElement.nextElementSibling			// Element
+childElement.firstChild					// Node
+
+
+/* Creating new element */
+const h2 = document.createElement('h2')				// Element Oluşturma
+h2.id = 'id'
+h2.setAttribute('class', 'card_header')				// Attribute Ekleme
+h2.appendChild(document.createTextNode('My List'))	// Text Ekleme
+h2.appendChild(document.createTextNode('My List'))	// Text Ekleme
+
+const a = document.createElement('a')
+a.innerHTML = '<h3>Asd</h3>'
+
+h2.appendChild(a)									// Element Ekleme
+
+
+/* Replacing Element */
+parentNode.replaceChild(newElement, oldElement)
+
+
+/* Removing Element */
+element.remove()									// element'i sayfadan siler
+element.removeChild(element.childeren[3])
+
+
+
+
+@@@ DOM Events @@@
+btn = document.getElementById('btn-1')
+btn.addEventListener('click', btnClick)		// btn'a tıklanınca btnClick fonksiyonu çalışacak
+btn.addEventListener('click', function(e) {	// eventListener fonksiyonu event parametresi alabilir
+	e.preventDefault()						// Default action'ı engeller				
+	e.target								// btn-1 element'ine döner
+	e.target.value							// Element'in valuesu ile girilen değeri anlama
+	e.type 									// "click"'e döner
+})
+
+
+/* Mouse Events */ 
+-click
+-dblclick
+-mousedown
+-mouseup
+-mouseenter
+-mouseleave
+-mouseover
+-mouseout
+-mousemove
+
++e.offSetX		// mouseın X kordinatına döner
+
+
+/* Keyboard Events */
+-keydown
+-keyup
+-keypress
+-cut
+-paste
+-select
+-focus
+-blur
+
++e.keyCode				// Which char pressed
+
+
+/* Other Events */
+-submit					// Form
+-change					// Select
+
+
+/* Event Bubbling */
+container > card > cardBody > form 
+
+for each x.addEventListener('click', func)
+-If we click form, all triggered. If we click card, card and container triggered. Trigger içten başlar dışa gider
+
+for each x.addEventListener('click', func, true)	
+-If we click form, sadece fomr triggerlanır. If we click card, cardBody ve from triggerlanır. Trigger dıştan başlar içe gider
+
+e.stopPropagation()		// Trigger'ın dışa/içe gitmesini engeller yazıldığı functiondan sonra
+
+ul.addEventListener('click', function(e) {
+	console.log(e.target)					// Target ul olmak zorunda değil. Ul'nin alt elemanına tıklarsakta bu function çağrılır. 
+})											// Taget li'lerden herhangi biri olabilir.
+
+
+
+
+@@@ Local & Session Storage @@@
+-Local Storage Tarayıcı Kapansa bile saklanır.
+-Session Storage Tarayıcı Kapanınca silinir.
+-Key-Value pairlerı sadece string olabilir
+
+localStorage.setItem('key', 'value')
+sessionStorage.getItem('key')
+localStorage.removeItem('key')
+sessionStorage.clear()					// All items gone
+
+localStorage.setItem('array', array)					// Array string'e dönüştürülerek kaydolur "a,2,c,5"
+sessionStorage.setItem('array', JSON.stringfy(array))	// Array string'e dönüştürülerek kaydolur ama arraye kolaylıkla geri dönüşümü yapılabilir "['a',2,'c',5]"
+val = JSON.parse(sessionStorage.getItem('array'))		// Array olarak geri dönüşüm yapılır
+
+
+
+
+@@@ Script Usage in HTML file @@@
+/* Internal Usage */
+<script>
+	alert("merhaba")
+</script>
+
+
+/* External Usage */
+<script src="script.js" type="text/Javascript"></script>
+
+
+
+
+@@@ JQuery @@@
+-Javascript Kütüphanesi
+-Daha az kodla DOM işlerini halletme
+-Hazır GUI'ler kullanma
+
+<script src="scripts/jquery.min.js"></script>	// Kurulum
+
+
+/* Selectors */
+$('#id/.class/tag')		// document.querySelectorAll('#id/.class/tag')
+
+
+/* Styling Content */
+$('ul li').css('border', '1px solid green')
+$('ul li').css({color: 'yellow', border: '1px solic red'})
+
+
+/* Methods */
+element.text()				// Altındaki tüm textleri döndürür (Direkt altında olmak zorunda değil)
+element.text("new")			// Yeni text setler
+element.value()				// Genelde inputlar için 
+element.value("new value")
+element.addClass("newClass")
+element.removeClass("oldClass")
+element.toggleClass("varsa çıkartır yoksa ekler")
+element.attr("width", "400")
+
+
+/* Events */
+$(function() {										// functionın dolar parantezi içinde olmasının nedeni sayfadaki bütün elementler hazır olduktan sonra çalışmasını sağlar
+	$(".paragraf").click(function() {				// Selectordan dönen tüm elemenlara ekler
+		$(this).addClass("paragrafa class ekle")	// this o an eklenen paragrafa refer eder
+	})		
+})		
+
+
+/* Effects */
+hide(speed, callbackFunction)					// İşlem bittikten sonra tetiklenecek fonksiyona callback denir
+show(speed, callbackFunction)
+toggle(speed, callbackFunction)					// Açıksa kapar, kapalıysa açar
+fadeIn/Out/Toggle/To(speed, callbackFunction)
+slideDown/Up/Toogle(callbackFunction)
+animate({ left: '200px',
+		  fontSize: '30px',
+		}, 3000, callback)						// Animation  Hızı
