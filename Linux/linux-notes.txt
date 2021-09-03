@@ -1,0 +1,608 @@
+File & Folder Commands
+-----------------------------------------------------------------------------------------
+/* Navigate File System */
+cd <path>	:	changes dir (relative|absolute)	
+pwd			:	prints the path of the working dir
+ls			: 	lists all dirs/files under the working dir
+	-l		:	shows as a table with plenty informations
+	-t		:	sorts by creation time
+	-r		:	lists reversely
+	-i		:	shows inode numberof dirs/files
+	<name>	:	lists dirs/files with given name
+	<path>	:	lists specified path		
+
+
+
+/* File Maintenance Commands */
+touch <file>+	:	creates empty files
+vi <file>		:	creates file by opening editor
+mkdir <folder>+	:	creates new dirs
+cp <orig> <new>	:	creates file by copying the existing file
+mv <orig> <new>	:	moves the existing file to new location
+rm <name>+		:	removes file
+	-f			:	forces removing (no need to confirm)
+	-r			:	removes folder
+rmdir <folder>+	:	removes folder
+
+
+  
+/* File Display Commands */ @@@ Can be piped
+cat <file>			:	prints content of the file as whole
+more <file>			:	prints content of the file as pages
+less <file>			:	prints content of the file as pages but supports
+						move one line at a time too
+head -<n> <file>	: 	prints first n lines of the file
+tail -<n> <file>	: 	prints last n lines of the file
+	-n -<n>			:	discards first/last n lines for tail/head 
+
+
+
+/* Filters-Text Processors Commands */ @@@ Can be piped
+cut -c<n> <file>		:	gets nth char of each lines
+	-c<k>,<l>			:	gets each index specified chars of each lines
+	-c<k>-<l>			:	gets chars of specified interval from each lines
+	-c<x>,<y>-<z>,<a>	:	trivial
+	-b					:	gets by byte size instead of char index
+	-d<char> -f<n> 		:	gets by char delimiter, when splitted to cols
+							for each line -f is for field 
+
+
+!!! Regex or line numbers can be used in edit command interchangebly
+sed <edit_command> <file>	:	edits file content and prints the editted content
+   	-i						:	inserts changes to the file (saves editted content)
+   	-n						:	stops printing lines which are default result of the sed
+   	<-e<edit_command>>+		:	executes multiple edit commands in one sed command
+
+	's/Kenny/Lenny/g'		:	substitutes Kenny with Lenny for all Kennies
+	s 						:	substitute
+	g						:	global (more than once)
+   
+   	'/Seinfeld/d'			:	deletes the lines with Seinfeld
+   	d						:	delete
+
+   	-n '12,18p'				:	prints the only lines between 12 and 18
+	p						:	prints the lines independently from standart sed output
+	$						:	indicates the last line number
+
+awk '{print $n}' <file>		:	prints the nth word from the file for each line
+			$k,$l			:	trivial
+			$NF				:	prints the last word
+			NF				: 	prints the number of words
+	'/regex/ {print}'		:	prints the only lines that contains regex
+	-F<char> '{print $1}'	: 	prints by char delimiter, when splitted to cols
+								for each line -f is for field
+	'$2="Adam"; print $0'	:	trivial. $0 means all the words
+	'length($0) > 15'		:	gets lines only longer then 15 chars
+	'{if($9=="<word>") print $0;}'	: 	trivial.
+
+
+grep    (<word>|regex) <file>	:	gets only lines that contains specified keyword
+     -c 						:	gets how many lines that word exists
+     -i							:	ignores case sensetive
+     -n							: 	gets the matching line number too at beginning
+     -v							:	gets every line but not the keyword lines
+egrep "<word1|word2>" <file>	:	trivial. Powerful version of grep
+
+
+sort <file>		:	sorts the lines of file by alphabetic order
+	-r			:	reverse sort
+	-k<n>		:	sort by nth column/word
+
+
+uniq	<file>		:	removes repated lines if they are consecutive
+sort <file> | uniq	:	removes repated lines
+	-c				:	print the number of same line counts in the beginning
+	-d				: 	show	only repeated lines
+
+
+wc <file>	:	prints the line count, word count, byte count in order
+	-l		:	only number of lines
+	-w		:	only number of words
+	-c		:	only number of bytes
+	-m		:	only number of chars
+	
+
+
+/* Comparing Files */
+diff <file1> <file2>	:	Prints the different lines
+cmp <file1> <file2>		:  	Prints in which line and char difference occurs
+
+
+
+/* Compressing Files */
+tar <compress_options> <tar_file_name> <path>	:	compress all files/folders
+		cvf											in the path to the one tar file
+		xvc		   <tar_file_name>				: 	extracts all files/folders from
+													tar file to cur path
+
+gzip <name>								:	compress file/folder to the gz file 	
+(gunzip|-d) <name>						: 	unzipped the compressed gz file
+
+
+
+/* Truncate File Size */
+!!! Truncate will chop the file to the given size. Data may and will be lost
+truncate -s <size_to_truncate> <name>	:	Shrinks or expands the size of the file
+
+
+
+/* Writing to The File */
+<command> > <file>+				:	puts command result to the file
+		  >> <file>+			:	appends command result to the file
+		  | tee <file>+			:	both show command on screen and writes to a file
+ 		  | tee -a <file>+		:	both show command on screen and appends to a file	
+
+
+
+/* Combining And Splitting Files */
+cat <files>+ > <new_file>		:	files will be combined and put to the new file
+split -l <n> <file> <prefix>	:	splits file for each n lines to new files whose
+									name starts with prefix
+
+
+
+/* Find File & Dir */
+find <path> -name <name>		: 	finds the location of the file (iterates
+									through files, slow)
+locate <name>					:	finds the location of the file (searches 
+									from prebuilt db, if not updated, result can be 
+									inaccurate, fast)  [->updatedb]
+
+
+
+
+
+Terminal & Command Information Commands
+-----------------------------------------------------------------------------------------
+/* Terminal Commands */
+clear	:	clears the terminal screen
+echo	:	echos text written 
+exit	:	it stops script. it stops user session. if there is neither script nor user 
+			sesssion, it closes terminal
+
+history					:	prints the command history	
+script <log_file_name>	:	it creates a file that records every command and its result
+							until exit command is executed
+
+
+
+/* Command Information Commands */
+whatis <command>	:	shows the short user manuel
+<command> --help	:	shows the average user manuel
+man <command>		:	shows the long user manuel 
+
+
+
+
+
+Terminal Actions & Shortcuts
+-----------------------------------------------------------------------------------------
+ctrl + C 	:	stops/kills currently running process
+ctrl + Z	:	suspends currentlye running process
+ctrl + D	:	exits from an interactive program (signals end of data)
+ctrl + U	:	erases everything typed on the command line
+ctrl + H	:	backspace
+ctrl + L	:	clears the terminal
+tab			: 	auto completes command & dir/file names
+tab & tab	:	shows all available options if there is no just one option
+up_key		:	gets last runned commands
+
+
+
+
+
+Permissions and Ownerships
+-----------------------------------------------------------------------------------------
+/* Permission Types */
+r	:	read
+w	:	write
+x	:	execute file (enter to folder)
+
+
+
+/* Subjects of Permissions */
+u	:	user (user that owns file)
+g	:	group (group that owns file)
+o	:	public (every other user)
+
+
+
+!!! Only Owner or Root can change permissions
+chmod <usergroup>(+-)<permtype> <name>	:	changes permission
+		   a							:	indicates all user types
+
+
+
+/* Numerical Permision Shortcuts */
+0	:	No Permission
+1	:	Execute
+2	:	Write
+3	:	Write + Execute
+4	:	Read
+5	:	Read + Execute
+6	:	Read + Write
+7	:	Read + Write + Execute
+
+chmod <perm_number><perm_number><perm_number> <name> : changes permission
+		user	        group  	 public
+
+
+
+/* Ownership */
+There are two owners of a file or dir. User and Group
+
+!!! Only Root can change user ownership
+chown <user_name> <file_name>		:	Changes user ownership of a file
+
+!!! A user in a group that owns a file can change groupship if the new group 
+	is also user's group
+chgrp <group_name> <file_name>		:	Changes group ownership of a file 
+
+
+
+/* Access Control List */
+More flexible way to control permissions. i.e. Only giving one specified user 
+permission who is not owner
+
+!!! Setting w permission does not allow to remove a file
+
+setfacl -m (u|g):(<user_name>|<group_name>):rwx <path>	:	Add permission entry
+setfacl -Rm "entry" <path>	: 	Allows all files or dirs to inherit ACL entries from 
+								parent directory. -R stands for 'recursive'
+setfacl -x "entry" <path>	: 	Removes permission entry
+setfacl -b <path>			:	Removes all permissons entries
+getfacl <path>				:	Show permissions and ACL entries
+
+
+
+
+
+Permissions to and Executing Admin Level Commands (Sudo Commands)
+-----------------------------------------------------------------------------------------
+visudo				:	Opens sudo config file in a vi editor. It shows which groups 
+						have right to which sudo commands. Users who belongs to these
+						groups, can execute specified commands with sudo command 
+
+
+sudo <command>		:	executes admin level commands from the current user if user
+						belongs to a group that has right to execute the given command
+
+
+
+
+
+User Account & Group Management Commands
+-----------------------------------------------------------------------------------------
+/etc/passwd				:	contains the information of users
+/etc/group				:	contains the information of groups 
+/etc/shadow				:	contains the password information of users
+
+
+
+/* User Acoount Management Commands */
+id <username>			:	gives information about user, its id and its groups
+
+useradd <username>		:	creates new user
+useradd -G <groupname> -s /bin/bash -c "user description" -m -d /home/<username> 
+																			<username>
+						-s		:	sets user's bash
+						-c		:	sets user's description
+						-d		:	sets user's home directory
+
+userdel <username>				:	deletes the user
+	-r							:	deletes the users home directory as well
+
+usermod <username>				:	modifies the user		
+	-g <groupname> <username>	:	changes user's default group				
+	-G <groupname> <username>	:	adds the user to the group
+
+passwd <username>				:	sets user's password
+
+
+
+/* Group Management Commands */
+groupadd <groupname>	:	creates new group
+groupdel <groupname>	:	deletes the group
+
+
+
+
+
+User Account Commands
+-----------------------------------------------------------------------------------------
+whoami				:	prints the username of current user
+su - <username>		:	switches to other user
+su -				:	switches to root user
+exit				:	exits from user account
+
+id <username>		:	shows the user id and groups of the user with their ids 
+						if user exists
+
+
+
+
+
+Talking to Users
+-----------------------------------------------------------------------------------------
+wall <message>				:	writes the message to every logged in user
+write <username> <message>	:	writes the message to logged in user
+
+
+
+
+
+
+System Commands
+-----------------------------------------------------------------------------------------
+/* Utility Commands */
+date				:	prints the current date and time
+cal					:	prints the current day of the month as a calendar 
+ 	<month> <year>	:	prints the specified month as a calendar
+ 	<year>			:	prints all the months of the specified year as a calendar
+bc					:	opens command line calculator
+
+
+
+/* Information Commands */
+uptime				:	prints the current time, how long your system is been runing, 
+						number of users currently logged in, the average CPU load 
+hostname			:	prints the system's network hostname
+arch				:	prints the architucture of cpu (32 or 64 bit)
+which <command>		:	prints the location of the command's script to be run
+whereis <commnad>	:	prints the location of the command's binary files path, source 
+						files path and man pages' file path
+
+hostnamectl	set-hostname <new_hostname>		:	changes the hostname
+
+uname	:	prints information related kernel
+	-s	:	Kernel Name
+	-n	:	Network Node Host Name
+	-r	:	Kernel release info
+	-v	:	Kernel version info
+	-o	:	Operating System Name
+
+dmidecode			:	prints description of systems hardware components and BIOS
+  --type <type> 	:	prints which info you want to see
+		bios
+		system
+		baseboard
+		chassis
+		processor
+		memory
+		cache
+		connector
+		slot
+
+
+
+/* Maintenance Commands */
+shutdown	:	shutdown normally
+halt		:	does not wait for process to end, shutdowns immediately
+reboot		
+init <1,6>	:	includes all the system maintenance commands. i.e. 6 reboots
+
+
+
+
+
+Monitoring
+-----------------------------------------------------------------------------------------
+/* System Monitoring */
+top			:	prints system resources usage, all the running processes
+df -h		:	reports file system disk usage
+du			:	estimates file space usage
+dmesg		:	reports system hardware related issues
+iostat		:	gives information about io devices (disc writing/reading etc.)
+netstat 	:	prints network connections and network related info
+free		:	displays free and used memory space 
+
+cat /proc/cpuinfo	:	trivial
+cat /proc/meminfo	:	trivial
+
+
+
+/* Log Monitoring */
+/var/log	:	usually all the logs are here
+
+messages	:	everything is logged to here
+boot		:	each boot process 
+chronyd		:	all the change on chronyd file 
+cron		:	when the process is adjusted through crontab entry
+maillog		:	all the mail transfers (coming/going)
+secure		:	all the login, logout activities
+
+
+
+/* User Monitoring */
+users	:	shows the users who are currently logged in
+who		:	shows the users who are currently logged in and their login time
+	-a	:	shows all information. Users login info & hostname, system boot, run level, 
+			login processes
+w:		:	shows the users who are currently logged in. It shows even more information
+last	:	shows all the users logged in. It shows login time, logout time, session 
+			duration, ip address. It also shows system's reboots with same infos.
+			It also indicates if the user crashed or closed the system while he/she was
+			logged in
+
+
+
+
+
+Process and Jobs
+-----------------------------------------------------------------------------------------
+/* Scheduling, Starting, Stoping, Monitoring */
+systemctl  <command> <process_name>	
+			start					:	to start a process
+			stop					:	to stop a process
+			enable					:	to enable a process
+			disable					:	to disable a process
+			status					:	to print the status of a process
+
+kill <process_id>	: 	to stop an process with its id
+pkill <process_name>:	to stop an process with its name
+ps -ef				:	prints all the running processes
+
+crontab -e			:	to schedule a processes that runs every determined periods
+						it will open a vi editor, there you should specify when to run
+						and what to do
+		-l			:	prints the crontab entries
+
+ls /etc | grep cron	:	these files are for task scheduling
+
+
+
+/* Management */
+<process> &			:	runs a process in the background
+nohup <process> &	:	runs a process that is not bound to the terminal
+ctrl + z			:	suspends a process
+ctrl + c			:	stops a process 
+jobs				:	prints the processes with their ranking (nth)
+bg %<n>*			:	runs the nth process in the background 
+fg %<n>*			:	runs the nth process in the foreground
+stop %<n>*			:	stops the nth process
+kill %<n>*			:	kills the nth process
+
+nice -n <n> <process>:	gives process a priority. -20 most important, 19 least importan	
+
+
+
+
+
+Environment Variables
+-----------------------------------------------------------------------------------------
+env					:	prints environment variables
+$<key_of_env_var>	:	gets enviroment variable's value in terminal/shell (i.e. echo 
+						$MAIL)
+
+export TEST=1		:	creates temp environment variable
+vi .bashrc			:	for adding permanant environment variable
+
+
+
+
+
+Pipes
+-----------------------------------------------------------------------------------------
+Pipe is used by the shell to connect the output of one command directly
+to the input of another command
+
+/* Usage */
+<command1> [args1] | <command2> [args2]
+
+
+
+
+
+File Types
+-----------------------------------------------------------------------------------------
+-	:	Regular file
+d	:	Directory
+l	:	Link
+c	:	Special file or device file
+s	:	Socket
+p	:	Named pipe
+b	:	Block device
+
+
+inode	:	Unique number for a file on to locate that file on the 
+			harddisk. Used by kernel.
+
+
+
+
+
+Folder Structure
+-----------------------------------------------------------------------------------------
+/					: 	All folders and files root from here. Top level
+						folder.
+/boot				:	Contains file that is used by the boot loader.
+/root				:	Root user home directory
+/dev				:	System device drivers  (i.e. I/O devices)
+/etc				:	Configuration files
+/bin  -> /usr/bin	:	Everyday user commands/executable files (i.e. ls,
+						cd, pwd )
+/sbin -> /usr/sbin	:	System/filesystem commands/executable files (Maybe Sudo Commands)
+/opt				:	Installed third party applications
+/proc				:	Running processes (Only exists when linux running)
+/lib  -> /usr/lib	:	Shared library files (Needed for commands/
+						apps)
+/tmp				:	Directory for temporary files
+/home				:	Directory for users
+/var				: 	System logs
+/run				:	Temp runtime files. Removed at the beginning of 
+						each boot processes 
+/mnt				:	To mount external filesystem
+/media				:	For cdrom mounts
+/usr				:	Used for miscellaneous purposes by multi-users.
+						i.e. User utilities and apps.
+/srv				:	Site-specififc data served bt system, i.e. data 
+						and scripts for web servers
+/sys				:	Contains info about devices and kernel feats
+
+
+
+
+
+Paths
+-----------------------------------------------------------------------------------------
+Everything starts with / is absolute path, everything starts without 
+/ is relative path
+
+.	:	Current directory relative path
+..	:	Parent directory relative path
+~	:	User's home directory
+
+
+
+
+
+Soft and Hard Links
+-----------------------------------------------------------------------------------------
+Link		:	Shortcut to files and directories	
+Soft Link	:	Link will be removed if file is removed, moved or renamed
+Hard Link	:	Deleting, renaming or moving the orginal file will not affect link (Same
+				inode number with linked file)
+
+/* Creating Link */
+ln <path>	:	creates a hard link to the file or directory in the current directory
+	-s		: 	creates a soft link
+
+
+
+
+
+Wildcards
+-----------------------------------------------------------------------------------------
+*		:	zero or more characters
+?		:	a single character
+\		:	an escape character
+^		:	beginning of the line
+$		:	end of the line
+[a-fxy]	:	at least one of the characters among speficied ranged 
+			characters plus last two characters
+
+
+
+
+
+Text Editors
+-----------------------------------------------------------------------------------------
+/* vi */
+i				:	Enters to Insert Mode
+o				:	Creates new line and enters to insert mode
+a				:	Switches to next char and enters to insert mode		
+u				:	Undo
+d & d			:	Delete Line
+x				:	Delete One Char
+r				: 	Replaces current char with new char
+/				:	Searches file
+
+esc					:	Enter to Read Mode
+shift + z & z		:	Save file and exit
+shift + : & wq!		:	Save file and exit
+shift + : & q!		:	Exit without saving
+
+
+
+
+
