@@ -1,0 +1,29 @@
+/* Database Operations */
+SHOW DATABASES;
+CREATE DATABASE <database name>;
+DROP DATABASE <database name>;		// Delete the database
+USE <database name>;
+SELECT database();					// Show the database in use
+
+
+/* Data Types */
+INT
+VARCHAR(<max length>)
+
+
+/* Table Operations */
+SHOW TABLES;
+SHOW COLUMNS FROM <table name>;
+DESC <table name>;					// Same as 'SHOW COLUMNS FROM <table name>'
+CREATE TABLE <table name> (
+	<column name> <data type>,
+	<column name> <data type>
+);
+DROP TABLE <table name>;			// Delete the table
+
+
+/* Data Operations */
+INSERT INTO <table name>(<column1>, <column2>) 
+VALUES 	(<value1>, <value2>),
+		(<value3>, <value4>),
+		(<value5>, <value6>);	
