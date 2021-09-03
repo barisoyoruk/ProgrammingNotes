@@ -1,0 +1,268 @@
+print(f'My name is {name}')	### To use variables inside string
+
+enumerate([a,b,c])	### Enumaretes list of tuples [(0,a),(1,b),(2,c)]
+
+zip([1,2,3],[a,b,c])	### Zips lists to tuples [(1,a),(2,b),(3,c)] 
+
+for a, b in [(1,2),(3,4)]	### Tuple unpacking
+
+for num in range(5,10)	### For loop
+
+mylist = [num ** 2 for num in range(0,8) if x % 2 == 0]		### [0,4,16,36]			### List comprehension
+mydict = {num: num**2 for num in range(1, 4) if x % 2 == 0)}	### {'1': 1, '2': 4, '3': 3} 	### Dict comprehension
+
+value1, value2 = function()	### Function returns a tuple of size two
+
+def myfunc(*args):	### Takes a tuple of an arbitary number of parameters. args is a tuple
+    print(args)
+
+def myfunc(**kwargs):	### Takes a dict of an arbitary number of parameters. kwargs is a dict
+    print(kwargs['key1'])
+myfunc(key1 = 'value1', key2 = 'value2')
+
+for x in range(0, n):
+    if statement:
+	break
+else:
+    instruction		### For-else block, if we executed for-loop completely (we didnt break), then else part will be executed in the end
+
+mapped_list = list(map(func,list))	### takes list items, execute the function for each item, put the return values to newly created list 
+
+filtered_list = list(filter(func,list))	### takes list items, execute the function for each item. 
+					### If the return value of the function is true, puts that item to the filtered_list, else it does not put
+			 
+lambda_func = lambda num: num ** 2	### Lambda function that takes argument num and return square of it. This is a function at a memory.
+lambda_func(5)	### Return 25		### It is commonly used for passing function to other functions.
+
+x = 50
+def func()
+    global x	### Like pass by reference, if we change the value of x in this scope it will effect the global definition of x
+    x = 100	### Now x is 100 in global scope
+
+@@@@@@ OBJECT ORIENTED PROGRAMMIN WITH PYTHON@@@@@@
+class Dog():
+    species= 'mammal'		### Class-object attribute, same for any instance
+
+    def __init__(self, breed):	### Constructor
+	self.breed = breed	### User-defined attribute, special for this instance
+
+    def some_method(self):	### W should put self to parameters to let python know that this is related to an instance of an object
+	#instruction		statement 
+
+dog = Dog('Pug')
+dog.breed
+dog.species	### Both of them is valid, but if you change value of dog.species it effects only that instance. Dog.species still remains same.
+Dog.species	### If you change Dog.species, it effects even dog.species and all other dog instances 
+
+class Animal():			### Parent class
+    def __init__(self, name):
+	self.name = name
+
+    def some_method1(self):
+
+    def some_method2(self):
+
+class Dog(Animal):		### Inheritance
+	
+    def __init__(self, name, type):
+	Animal.__init__(self, name)	### Just like super(name)
+	self.type = type		
+
+	def some_method2(self):		### Overriding method
+
+dog = Dog()
+dog.some_method1()	### Calls from Animal
+dog.some_method2()	### Calls from Dog
+
+### These all are overrideable
+def __str__(self):	### Built-in print(object) function calls this magic function to print the object
+def __len__(self):	### Built-in len(object) function calls this magic function to give the length of the object
+def __del__(self):	### Called when 'del object' executed to remove it from the memory
+def __call__(self, param):	### It enables instances to be called like function. This method is called when the instance called like a function. i.e. instance(param) ### __call__ function executed.
+def __add__(self, o):	### Straightforward
+def __sub__(self, o):	### Straightforward
+
+
+module				### Each .py file (aka python-script) that contains classes and functions
+from module import function	### Importing specific function
+function()
+import module			### Importing whole module with its functions
+module.function()
+
+package				### Folder that contains packages and modules. There should be an empty file named __init__.py 
+				### inside tihs folder to let python know that the folder contains packages and modules
+from package import module
+from package.subpackage import submodule
+
+
+@@@@@@ HOW PYTHON SCRIPTS RUN @@@@@@
+### Every line of code in python script files that are at indentation level of 0 are executed in order.
+### Whether you directly run it or it is being called as a module from another script.
+
+if __name__=="__main__":	### Python assigns automatically names to the scripts according to 
+				### their execution ways. When a script executed directly (i.e. python script.py)
+				### its __name__ assigned to '__main__'. 
+### To understand that a script is run executed directly as a main file we used this methodology. 
+### If script is executed by another script, its __name__ becomes the <'script's name'>
+
+
+try:
+    #instruction
+except TypeError:
+    # TypeError happened
+except:
+    # Any error happened
+else:
+    # Everything went well
+finally:
+    # Always executed even there is a return/break/continue label in the above statements
+
+
+@@@@@ RETURNING AND PASSING OTHER FUNCTIONS IN PYTHON @@@@@@
+def hello():
+    return 'Hello'
+
+greet = hello
+greet()		### Returns 'hello'
+
+def hello()
+    print('The hello() function has been executed')
+
+    def greet():
+	return 'The greet() function has been executed'
+
+    return greet
+
+welcome = hello()	### Prints 'The hello() function has been executed'
+welcome() 		### Returns 'The greet() function has been executed' 
+
+def other(passed_func):
+    print('Other code runs here!')
+    print(passed_func())
+
+other(welcome)		### Prints 'Other code runs here!' and 'The greet() function has been executed'
+
+@@@@@ DECORATORS IN PYTHON @@@@@
+def new_decorator(original_func):
+	
+    def wrap_func():
+	print('Some extra code, before the original function')
+	original_func()
+	print('Some extra code, after the original function')
+
+    return wrap_func
+
+@new_decorator
+def func():
+    print('func() has been executed')
+
+func()		### Prints 'Some extra code, before the original function', 'func() has been executed', and 'Some extra code, after the original function'
+
+
+@@@@@ GENERATORS IN PYTHON @@@@@
+def gen_fib(n):
+
+    a = 1
+    b = 1
+
+    for i in range(n):
+	yield a			### This is a generator function. Instead of returning list of values for fib series
+	a, b = b, b + a		### we simply yield the next value by calculating it from the previous values. To use
+				### this function, we should iterate through the function like below. Else, we can say
+				### list(gen_fib(10)) to get actually list. This method is very memory efficient 
+
+for number in gen_fib(10):	### We itarete through generator object
+	print number
+
+g = gen_fib()	### g is a generator object (iteratable)
+next(g)		### Itareting through the next value. Returns 1 for the first time and then returns 1, 2, 3, ... for next calls
+
+gencomp = (item for item in my_list if item > 3) 	### Generator comprehension just like list and dict comprehension
+
+s = 'Hello World'
+s_iter = iter(s)	### Return iteratable version of string, now we can call next(s_iter)
+
+
+from collections import namedtuple
+Dog = namedtuple('Dog', ['age', 'breed', 'name'])	### Pseudo Dog Class with attributes age, breed, name
+sammy = Dog(age = 5, breed = 'Husky', name = 'Same')	### A Dog instance with tuple of attributes
+sammy.age						### Instances are immutable
+
+
+import pdb	### Python debugger
+
+x = [1,2]
+y = 3
+z = 4 
+
+res1 = y + z	
+
+pbd.set_trace()	### We can learn what the variables are currently by stopping program here and entering the debug mode before the Error
+		### We can check what is x, y, z, res1. We can execute y + x and see that it is the reason of the error. To quit debug mode, enter q
+ 
+red2 = y + x	### Will give error
+
+
+multi_line_string = '''
+This is a one line
+This is a second line
+'''
+
+@@@@@ * and ** in Python @@@@@
+fruits = ['lemon', 'pear', 'watermelon']
+print(*fruits)		### for unpacking into function call
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
